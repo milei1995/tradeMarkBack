@@ -1,35 +1,66 @@
 <template>
   <div>
-    <a-table :columns="columns" :dataSource="dataSource" :pagination="pagination"   :rowKey="record => (record.registerId)" bordered>
+    <a-table
+      :columns="columns"
+      :dataSource="dataSource"
+      :pagination="pagination"
+      :rowKey="record => (record.registerId)"
+      bordered
+    >
       <span slot="action" slot-scope="text, record">
         <a @click="searchDetail(record)">查看详情</a>
-        <a-divider type="vertical"/>
-       <a v-if="record.isVerify===2" @click="examineOrder(record)">审核</a>
+        <a-divider type="vertical" />
+        <a v-if="record.isVerify===2" @click="examineOrder(record)">审核</a>
         <span v-else>已审核</span>
       </span>
     </a-table>
-    <a-modal
-      title="订单详情"
-      :visible="visible"
-      width="900px"
-      :footer="null"
-      @cancel="handleCancel"
-    >
-      <div class='detail'>
-         <div class='detail1'>
-            订单号：{{currentRecord.orderNo}}
-            用户名称：{{currentRecord.realName}}
-            用户手机号：{{currentRecord.phone}}
-            金额：{{currentRecord.totalPrice}}
-            <p>订单创建时间：{{currentRecord.createTime}}</p>
-         </div>
+    <a-modal title="订单详情" :visible="visible" width="500px" :footer="null" @cancel="handleCancel">
+      <div class="detail">
+        <span>1.用户信息:</span>
+        <div class="detail1">
+          <div class="detail1-part">用户名：{{currentRecord.realName}}</div>
+          <div class="detail1-part">微信号：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">QQ号：{{currentRecord.qqAccount}}</div>
+          <div class="detail1-part">登陆手机号：{{currentRecord.phone}}</div>
+        </div>
+        <span>2.商标信息</span>
          <div class="detail2">
-             <span>商品服务信息:</span>
-             <div class='goodsInfoItem' v-for="(item,index) in currentRecord.orderGoodsList" :key="index">
-                 <div>第{{item.classifyNum}}类---{{item.classifyName}}</div>
-                 <div><span v-for="(item2,index2) in item.goods" :key="index2">{{item2}};</span></div>
-             </div>
-         </div>
+          <div class="detail1-part">注册商标名称：{{currentRecord.realName}}</div>
+          <div class="detail1-part">商标说明：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">商标图片：{{currentRecord.qqAccount}}</div>
+          <div class="detail1-part">商标类型：{{currentRecord.phone}}</div>
+          <div class="detail1-part">订单号：{{currentRecord.phone}}</div>
+        </div>
+        <span>3.具体购买商品</span>
+         <div class="detail3">
+          <div class="detail1-part">类别名称：{{currentRecord.realName}}</div>
+          <div class="detail1-part">具体商品/服务：{{currentRecord.wxAccount}}</div>
+        </div>
+         <span>4.企业申请人信息</span>
+         <div class="detail3">
+          <div class="detail1-part">申请类型：{{currentRecord.realName}}</div>
+          <div class="detail1-part">企业名称：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">主体资格证明文件：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">省市区：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">营业执照地址：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">联系人：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">联系人电话：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">传真：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">联系人邮箱：{{currentRecord.wxAccount}}</div>
+        </div>
+        <span>5.用户申请人信息</span>
+         <div class="detail3">
+          <div class="detail1-part">申请用户名称：{{currentRecord.realName}}</div>
+          <div class="detail1-part">身份证：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">身份证正面：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">身份证反面：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">主体资格证明文件：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">省市区：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">身份证地址：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">联系人：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">联系人手机号：{{currentRecord.wxAccount}}</div>
+          <div class="detail1-part">联系人邮箱：{{currentRecord.wxAccount}}</div>
+        </div>
       </div>
     </a-modal>
   </div>
@@ -160,7 +191,7 @@ export default {
       },
       visible: false,
       confirmLoading: false,
-      currentRecord:{}//当前选中的订单
+      currentRecord: {} //当前选中的订单
     };
   },
   mounted() {
@@ -194,8 +225,8 @@ export default {
     },
     searchDetail(record) {
       console.log(record);
-      this.currentRecord=record
-      this.showModal()
+      this.currentRecord = record;
+      this.showModal();
     },
     pageChange(page) {
       console.log(page);
@@ -209,33 +240,48 @@ export default {
       console.log("Clicked cancel button");
       this.visible = false;
     },
-    examineOrder(record){//审核订单
-        //审核
+    examineOrder(record) {
+      //审核订单
+      //审核
       console.log(record);
-       const headers = {
+      const headers = {
         accessToken: accessToken
-      }
-       const params = {
-        orderNo:record.orderNo
+      };
+      const params = {
+        orderNo: record.orderNo
       };
       this.$axios({
-        method:'post',
-        url:"/api/trademark/admin/code/checkOrder",
-        data:params,
-        headers:headers
-      }).then(res=>{
-        console.log(res)
-        if(res.data.success){
-          this.$message.success('审核成功')
-          this.getOrderListData(this.pagination.current)
-        }
-      }).catch(err=>{
-        console.log(err)
-      }) 
+        method: "post",
+        url: "/api/trademark/admin/code/checkOrder",
+        data: params,
+        headers: headers
+      })
+        .then(res => {
+          console.log(res);
+          if (res.data.success) {
+            this.$message.success("审核成功");
+            this.getOrderListData(this.pagination.current);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
 </script>
 
-<style>
+<style  scoped>
+.detail1,.detail2,.detail3 {
+  width: 400px;
+  border-top: 1px solid #000000;
+  border-left:1px solid #000000;
+  border-right:1px solid #000000;
+}
+.detail1-part{
+  width:100%;
+  height:20px;
+  line-height: 20px;
+  border-bottom:1px solid black;
+}
 </style>
