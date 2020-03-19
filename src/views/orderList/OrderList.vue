@@ -140,21 +140,15 @@
 import { getStorage } from "../../utils/storage";
 const accessToken = getStorage("AccessToken");
 let columns = [
+   {
+    title: "序号",
+    align: "center",
+    dataIndex: "orderId"
+  },
   {
     title: "注册商标名称",
     align: "center",
     dataIndex: "trademarkName"
-  },
-  {
-    title: "商标说明",
-    align: "center",
-    dataIndex: "trademarkExplain"
-  },
-  {
-    title: "商标图片",
-    align: "center",
-    dataIndex: "trademarkImage",
-    scopedSlots: { customRender: "goodsImg" }
   },
   {
     title: "商标类型",
@@ -175,19 +169,9 @@ let columns = [
     }
   },
   {
-    title: "商标颜色",
+    title: "支付价格",
     align: "center",
-    dataIndex: "trademarkColor",
-    customRender: text => {
-      let res = "";
-      if (text === 1) {
-        res = "黑白";
-      }
-      if (text === 2) {
-        res = "彩色";
-      }
-      return res;
-    }
+    dataIndex: "totalPrice",
   },
   {
     title: "支付状态",
@@ -236,6 +220,11 @@ let columns = [
       }
       return res;
     }
+  },
+  {
+    title:"创建时间",
+    align:"center",
+    dataIndex:"createTime"
   },
   {
     title: "操作",
