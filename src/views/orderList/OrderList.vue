@@ -33,12 +33,16 @@
         </div>
         <span style="font-size:16px;font-weight:bold;margin-top:5px;display:block;">3.具体购买商品</span>
         <div class="goods-detail">
-            <div class='goods-detail-item' v-for="(item,index) in currentRecord.orderGoodsList" :key="index">
-               <div class='goods-item1'>{{item.classifyNum}}--{{item.classifyName}}--{{item.groupsNum}}</div>
-               <div class='goods-item2'>
-                 <span v-for="(item2,index2) in item.goods" :key="index2">{{item2}};</span>
-               </div>
+          <div
+            class="goods-detail-item"
+            v-for="(item,index) in currentRecord.orderGoodsList"
+            :key="index"
+          >
+            <div class="goods-item1">{{item.classifyNum}}--{{item.classifyName}}--{{item.groupsNum}}</div>
+            <div class="goods-item2">
+              <span v-for="(item2,index2) in item.goods" :key="index2">{{item2}};</span>
             </div>
+          </div>
         </div>
         <template v-if="JSON.stringify(currentRecord.configCompanyApply) !== '{}'">
           <span style="font-size:16px;font-weight:bold;margin-top:5px;display:block;">4.企业申请人信息</span>
@@ -58,6 +62,15 @@
                   class="detail-img"
                   :src="currentRecord.configCompanyApply.companyProveImage"
                 />
+              </div>
+            </a-popover>
+            <a-popover title="图片详情" placement="right">
+              <template slot="content">
+                <img style="width:500px;height:600px;" :src="currentRecord.powerOfAttorney" />
+              </template>
+              <div class="detail1-part-img">
+                委托书证明文件：
+                <img class="detail-img" :src="currentRecord.powerOfAttorney" />
               </div>
             </a-popover>
             <div
@@ -122,6 +135,17 @@
                 </div>
               </a-popover>
             </div>
+            <div class="detail1-part-img">
+              <a-popover title="图片详情" placement="right">
+                <template slot="content">
+                  <img style="width:500px;height:600px;" :src="currentRecord.powerOfAttorney" />
+                </template>
+                <div class="detail1-part-img">
+                  委托书证明文件：
+                  <img class="detail-img" :src="currentRecord.powerOfAttorney" />
+                </div>
+              </a-popover>
+            </div>
             <div
               class="detail1-part"
             >省市区：{{currentRecord.configUserApply.province}}--{{currentRecord.configUserApply.city}}--{{currentRecord.configUserApply.district}}</div>
@@ -140,7 +164,7 @@
 import { getStorage } from "../../utils/storage";
 const accessToken = getStorage("AccessToken");
 let columns = [
-   {
+  {
     title: "序号",
     align: "center",
     dataIndex: "orderId"
@@ -171,7 +195,7 @@ let columns = [
   {
     title: "支付价格",
     align: "center",
-    dataIndex: "totalPrice",
+    dataIndex: "totalPrice"
   },
   {
     title: "支付状态",
@@ -222,9 +246,9 @@ let columns = [
     }
   },
   {
-    title:"创建时间",
-    align:"center",
-    dataIndex:"createTime"
+    title: "创建时间",
+    align: "center",
+    dataIndex: "createTime"
   },
   {
     title: "操作",
@@ -253,34 +277,32 @@ export default {
       currentRecord: {} //当前选中的订单
     };
   },
-  computed:{
-  
-  },
+  computed: {},
   mounted() {
     this.getOrderListData(1);
   },
   methods: {
-      tradeMarkStatus11(){
-      const status=this.currentRecord.trademarkStatus
-      console.log(status)
+    tradeMarkStatus11() {
+      const status = this.currentRecord.trademarkStatus;
+      console.log(status);
       // return status
-       if(status==1){
-         return '文字商标'
-       }
-       if(status==2){
-         return '图形商标'
-       }
-       if(status==3){
-         return '文字图形商标'
-       }
+      if (status == 1) {
+        return "文字商标";
+      }
+      if (status == 2) {
+        return "图形商标";
+      }
+      if (status == 3) {
+        return "文字图形商标";
+      }
     },
-    applyType(){
-       const applyType=this.currentRecord.configCompanyApply.applyType
-       if(applyType==1){
-         return '中国大陆'
-       }else{
-         return applyType
-       }
+    applyType() {
+      const applyType = this.currentRecord.configCompanyApply.applyType;
+      if (applyType == 1) {
+        return "中国大陆";
+      } else {
+        return applyType;
+      }
     },
     getOrderListData(page) {
       const headers = {
@@ -367,31 +389,31 @@ export default {
   text-indent: 20px;
   border-radius: 5px;
 }
-.goods-detail{
-   width: 450px;
+.goods-detail {
+  width: 450px;
   border-top: 1px solid #000000;
   border-left: 1px solid #000000;
   border-right: 1px solid #000000;
   text-indent: 20px;
   border-radius: 5px;
 }
-.goods-detail-item{
-  width:100%;
+.goods-detail-item {
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.goods-item1{
-  width:50%;
-  height:40px;
+.goods-item1 {
+  width: 50%;
+  height: 40px;
   line-height: 40px;
-  border-right:1px solid black;
-  border-bottom:1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
 }
-.goods-item2{
-  width:50%;
+.goods-item2 {
+  width: 50%;
   height: 40px;
   line-height: 20px;
-  border-bottom:1px solid black;
+  border-bottom: 1px solid black;
   overflow: auto;
 }
 
