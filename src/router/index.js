@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/login/login.vue'
 import ApplyList from '../views/applyList/ApplyList.vue'
 import OrderList from '../views/orderList/OrderList.vue'
+import UserList from '../views/userList/UserList.vue'
 
 Vue.use(Router)
 
@@ -27,7 +28,12 @@ export default new Router({
                 path:'/orderList',
                 component:OrderList,
                 name:'orderList'
-            }
+            },
+             {
+                 path: '/userList',
+                 component: UserList,
+                 name: 'userList'
+             }
         ]
         }, {
             path: '/login',

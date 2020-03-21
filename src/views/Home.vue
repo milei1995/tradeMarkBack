@@ -16,6 +16,10 @@
           <a-icon type="user" />
           <span>查看订单列表</span>
         </a-menu-item>
+         <a-menu-item key="3" @click="go('userList')">
+          <a-icon type="user" />
+          <span>用户订单列表</span>
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>
