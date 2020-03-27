@@ -1,10 +1,6 @@
 <template>
   <div>
     <a-table :columns="columns" :dataSource="dataSource" :pagination="pagination" bordered>
-      <!-- <span slot="action" slot-scope="text, record">
-        <a v-if='record.isVerify===2' @click="examineGoods(record)">审核</a>
-        <span v-else>已审核</span>
-      </span> -->
     </a-table>
   </div>
 </template>

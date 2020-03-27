@@ -6,7 +6,9 @@
       v-model="collapsed"
       :style="{ height: '100%', borderRight: 0 }"
     >
-      <div class="logo" />
+      <div class="logo" >
+        <img src="../assets/global-logo.png"  style='width:100%;height:100%;'  />
+      </div>
       <a-menu theme="dark" mode="inline" :defaultSelectedKeys="['1']">
         <a-menu-item key="1" @click="go('applyList')">
           <a-icon type="user" />
@@ -90,7 +92,7 @@ export default {
 }
 
 #components-layout-demo-custom-trigger .logo {
-  height: 32px;
+  height: 40px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
 }

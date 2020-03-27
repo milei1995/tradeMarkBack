@@ -1,6 +1,15 @@
 <template>
   <div>
     <a-table :columns="columns" :dataSource="dataSource" :pagination="pagination" bordered>
+       <span slot='applyType' slot-scope="text,record">
+        <a-tag v-if="record.applyType==1" :color="'#007ACC'">专家申请</a-tag>
+        <a-tag v-if="record.applyType==2" :color="'#2db7f5'">普通商标需求</a-tag>
+        <a-tag v-if="record.applyType==3" :color="'#87d068'">商标咨询</a-tag>
+      </span>
+       <span slot='isVerify' slot-scope="text,record">
+        <a-tag v-if="record.isVerify==1" color="red">审核</a-tag>
+        <a-tag v-if="record.isVerify==2" color="blue">未审核</a-tag>
+      </span>
       <span slot="action" slot-scope="text, record">
         <a v-if='record.isVerify===2' @click="examineGoods(record)">审核</a>
         <span v-else>已审核</span>
@@ -27,19 +36,20 @@ let columns = [
     title: "申请类型",
     align: "center",
     dataIndex: "applyType",
-    customRender: function(text) {
-      let res = "";
-      if (text === 1) {
-        res = "专家申请";
-      }
-      if (text === 2) {
-        res = "普通商标需求";
-      }
-      if (text === 3) {
-        res = "商标咨询";
-      }
-      return res;
-    }
+    scopedSlots:{ customRender:'applyType'},
+    // customRender: function(text) {
+    //   let res = "";
+    //   if (text === 1) {
+    //     res = "专家申请";
+    //   }
+    //   if (text === 2) {
+    //     res = "普通商标需求";
+    //   }
+    //   if (text === 3) {
+    //     res = "商标咨询";
+    //   }
+    //   return res;
+    // }
   },
   {
     title: "手机号",
@@ -70,16 +80,17 @@ let columns = [
     title: "是否审核",
     align: "center",
     dataIndex: "isVerify",
-    customRender: function(text) {
-      let res = "";
-      if (text === 1) {
-        res = "审核";
-      }
-      if (text === 2) {
-        res = "未审核";
-      }
-      return res;
-    }
+    scopedSlots:{ customRender:'isVerify'},
+    // customRender: function(text) {
+    //   let res = "";
+    //   if (text === 1) {
+    //     res = "审核";
+    //   }
+    //   if (text === 2) {
+    //     res = "未审核";
+    //   }
+    //   return res;
+    // }
   },
   {
     title: "操作",

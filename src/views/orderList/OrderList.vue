@@ -7,6 +7,27 @@
       :rowKey="record => (record.registerId)"
       bordered
     >
+      <span slot='tradeType' slot-scope="text,record">
+        <a-tag v-if="record.trademarkStatus==1" :color="'#007ACC'">文字商标</a-tag>
+        <a-tag v-if="record.trademarkStatus==2" :color="'#2db7f5'">图形商标</a-tag>
+        <a-tag v-if="record.trademarkStatus==3" :color="'#87d068'">文字图形商标</a-tag>
+      </span>
+      <span slot='totalPrice' slot-scope="text,record">
+         <a-tag color="orange">{{record.totalPrice}}元</a-tag>
+      </span>
+      <span slot='payStatus' slot-scope="text,record">
+        <a-tag color="red" v-if="record.payStatus==0">未支付</a-tag>
+        <a-tag color="green" v-if="record.payStatus==1">支付成功</a-tag>
+        <a-tag color="purple" v-if="record.payStatus==2">支付失败</a-tag>
+      </span>
+       <span slot='payType' slot-scope="text,record">
+        <a-tag color="pink" v-if="record.payType==1">微信</a-tag>
+        <a-tag color="blue" v-if="record.payType==2">支付宝</a-tag>
+      </span>
+       <span slot='isVerify' slot-scope="text,record">
+        <a-tag color="pink" v-if="record.isVerify==1">审核</a-tag>
+        <a-tag color="blue" v-if="record.isVerify==2">未审核</a-tag>
+      </span>
       <span slot="action" slot-scope="text, record">
         <a @click="searchDetail(record)">查看详情</a>
         <a-divider type="vertical" />
@@ -178,72 +199,77 @@ let columns = [
     title: "商标类型",
     align: "center",
     dataIndex: "trademarkStatus",
-    customRender: function(text) {
-      let res = "";
-      if (text === 1) {
-        res = "文字商标";
-      }
-      if (text === 2) {
-        res = "图形商标";
-      }
-      if (text === 3) {
-        res = "文字图形组合商标 ";
-      }
-      return res;
-    }
+    scopedSlots:{ customRender:'tradeType'},
+    // customRender: function(text) {
+    //   let res = "";
+    //   if (text === 1) {
+    //     res = "文字商标";
+    //   }
+    //   if (text === 2) {
+    //     res = "图形商标";
+    //   }
+    //   if (text === 3) {
+    //     res = "文字图形组合商标 ";
+    //   }
+    //   return res;
+    // }
   },
   {
     title: "支付价格",
     align: "center",
-    dataIndex: "totalPrice"
+    dataIndex: "totalPrice",
+    scopedSlots:{ customRender:'totalPrice'},
   },
   {
     title: "支付状态",
     align: "center",
     dataIndex: "payStatus",
-    customRender: text => {
-      let res = "";
-      if (text === 0) {
-        res = "未支付";
-      }
-      if (text === 1) {
-        res = "支付成功";
-      }
-      if (text === 2) {
-        res = "退款";
-      }
-      return res;
-    }
+    scopedSlots:{ customRender:'payStatus'},
+    // customRender: text => {
+    //   let res = "";
+    //   if (text === 0) {
+    //     res = "未支付";
+    //   }
+    //   if (text === 1) {
+    //     res = "支付成功";
+    //   }
+    //   if (text === 2) {
+    //     res = "退款";
+    //   }
+    //   return res;
+    // }
   },
   {
     title: "支付方式",
     align: "center",
     dataIndex: "payType",
-    customRender: text => {
-      let res = "";
-      if (text === 1) {
-        res = "微信";
-      }
-      if (text === 2) {
-        res = "支付宝";
-      }
-      return res;
-    }
+    scopedSlots:{ customRender:'payType'},
+    // customRender: text => {
+    //   let res = "";
+    //   if (text === 1) {
+    //     res = "微信";
+    //   }
+    //   if (text === 2) {
+    //     res = "支付宝";
+    //   }
+    //   return res;
+    // }
   },
   {
     title: "审核状态",
     align: "center",
     dataIndex: "isVerify",
-    customRender: text => {
-      let res = "";
-      if (text === 1) {
-        res = "审核";
-      }
-      if (text === 2) {
-        res = "未审核";
-      }
-      return res;
-    }
+    scopedSlots:{ customRender:'isVerify'},
+    // customRender: text => {
+    //   let res = "";
+    //   if (text === 1) {
+    //     res = "审核";
+    //   }
+    //   if (text === 2) {
+    //     res = "未审核";
+    //   }
+    //   return res;
+    // }
   },
   {
     title: "创建时间",
