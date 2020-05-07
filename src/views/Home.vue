@@ -22,6 +22,10 @@
           <a-icon type="user" />
           <span>用户订单列表</span>
         </a-menu-item>
+        <a-menu-item key="4" @click="go('uploadList')">
+          <a-icon type="user" />
+          <span>商标上传列表</span>
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>

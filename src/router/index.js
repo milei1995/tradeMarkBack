@@ -6,6 +6,7 @@ import Login from '../views/login/login.vue'
 import ApplyList from '../views/applyList/ApplyList.vue'
 import OrderList from '../views/orderList/OrderList.vue'
 import UserList from '../views/userList/UserList.vue'
+import UploadList from '../views/uploadList/UploadList.vue'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
                  path: '/userList',
                  component: UserList,
                  name: 'userList'
+             },
+             {
+                 path:'/uploadList',
+                 component:UploadList,
+                 name:'uploadList'
              }
         ]
         }, {
