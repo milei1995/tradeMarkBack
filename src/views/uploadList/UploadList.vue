@@ -1,7 +1,13 @@
 <!-- 组件说明 -->
 <template>
   <div class="uploadList">
+    <div class="searchArea">
+       <a-input placeholder="请输入商标名称搜索"  v-model="searchParams.tmName" style="width:200px;"/>
+       <a-input placeholder="请输入商标注册号搜索" v-model="searchParams.regNo" style="width:200px;margin-left:20px;" />
+       <a-button style="margin-left:20px;" type="primary" @click="handleSearch">搜索</a-button>
+    </div>
     <a-table
+      style="margin-top:10px;"
       :columns="columns"
       :dataSource="dataSource"
       :pagination="pagination"
@@ -16,6 +22,9 @@
           </template>
           <img :src="record.tmImg" style="width:40px;height:40px;" />
         </a-popover>
+      </span>
+      <span slot="remark" slot-scope="text, record">
+        <div style="height:80px;overflow:hidden;">{{record.remark}}</div>
       </span>
       <span slot="action" slot-scope="text, record">
         <span v-if="record.verifyStatus === 1">已审核</span>
@@ -66,6 +75,11 @@ const columns = [
     width: "1000px",
   },
   {
+    title:"注册手机号",
+    align:"center",
+    dataIndex:"phone"
+  },
+  {
     title: "商标状态",
     align: "center",
     dataIndex: "currentStatus",
@@ -89,7 +103,7 @@ const columns = [
   {
     title: "备注",
     align: "center",
-    dataIndex: "remark",
+    scopedSlots: { customRender: "remark" },
     width: "200px",
   },
   {
@@ -114,10 +128,11 @@ export default {
     return {
       columns,
       dataSource: [],
+      searchParams:{},
       pagination: {
         current: 1,
         total: null,
-        pageSize: 8,
+        pageSize: 6,
         onChange: this.pageChange,
       },
     };
@@ -130,8 +145,9 @@ export default {
       };
       const params = {
         page: page,
-        pageSize: 8,
+        pageSize: 6,
         isAdminType: 1,
+        ...this.searchParams
       };
       this.$axios({
         method: "post",
@@ -146,6 +162,9 @@ export default {
           this.dataSource = res.data.data.list;
         }
       });
+    },
+    handleSearch(){
+      this.getUploadList(this.pagination.current)
     },
     examineUpload(record) {
       const headers = {
