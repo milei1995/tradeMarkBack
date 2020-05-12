@@ -83,10 +83,35 @@ export default {
        },
     };
   },
+  created(){
+    this.checkToken()
+  },
   mounted() {
     this.getUserListData(1);
   },
   methods: {
+     checkToken(){
+      const accessToken = getStorage("AccessToken");
+      const url='/api/trademark/user/checkToken'
+      const params={
+          accessToken:accessToken
+       }
+      this.$axios({
+        method:'get',
+        url:url,
+        params:params
+      }).then(res=>{
+        console.log(res)
+        if(res.data.success){
+          if(!res.data.data.tokenType){
+             this.$message.error("当前用户已过期，请重新登录")
+             setTimeout(() => {
+                        this.$router.push({ path: "/login" });
+                      }, 2000);
+          }
+        }
+      })
+    },
     getUserListData(page) {
       const headers = {
         accessToken: accessToken

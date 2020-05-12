@@ -61,6 +61,9 @@ export default {
     };
   },
   created() {
+    this.checkToken()
+  },
+  mounted(){
     const accessToken = getStorage("AccessToken");
     const userName=getStorage("UserName")
     if (!accessToken) {
@@ -74,6 +77,28 @@ export default {
   methods: {
     go(name) {
       this.$router.push({ name: name });
+    },
+    checkToken(){
+      const accessToken = getStorage("AccessToken");
+      const url='/api/trademark/user/checkToken'
+      const params={
+          accessToken:accessToken
+       }
+      this.$axios({
+        method:'get',
+        url:url,
+        params:params
+      }).then(res=>{
+        console.log(res)
+        if(res.data.success){
+          if(!res.data.data.tokenType){
+             this.$message.error("当前用户已过期，请重新登录")
+             setTimeout(() => {
+                        this.$router.push({ path: "/login" });
+                      }, 2000);
+          }
+        }
+      })
     },
     logout(){
       removeStorage('AccessToken')

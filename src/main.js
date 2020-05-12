@@ -13,6 +13,13 @@ Vue.prototype.$axios = axios;
 Vue.use(Antd)
 Vue.use(axios)
 
+router.beforeEach((to, from, next) => {
+ console.log(to)
+ console.log(from)
+ 
+ next()
+})
+
 new Vue({
   router,
   render: h => h(App),
