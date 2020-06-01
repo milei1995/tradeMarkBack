@@ -39,7 +39,7 @@
 
 <script>
 import { getStorage } from "../../utils/storage";
-const accessToken = getStorage("AccessToken");
+// const accessToken = getStorage("AccessToken");
 const columns = [
   {
     title: "注册号",
@@ -162,6 +162,7 @@ export default {
       })
     },
     getUploadList(page) {
+      const accessToken = getStorage("AccessToken");
       const headers = {
         accessToken: accessToken,
       };
@@ -189,6 +190,7 @@ export default {
       this.getUploadList(this.pagination.current)
     },
     examineUpload(record) {
+      const accessToken = getStorage("AccessToken");
       const headers = {
         accessToken: accessToken,
       };

@@ -7,7 +7,7 @@
 
 <script>
 import {getStorage} from '../../utils/storage'
-const accessToken =getStorage('AccessToken')
+// const accessToken =getStorage('AccessToken')
 let columns = [
    {
     title: "序号",
@@ -113,6 +113,7 @@ export default {
       })
     },
     getUserListData(page) {
+      const accessToken =getStorage('AccessToken')
       const headers = {
         accessToken: accessToken
       };

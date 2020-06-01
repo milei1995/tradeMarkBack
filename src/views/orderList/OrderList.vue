@@ -48,7 +48,14 @@
         <div class="detail2">
           <div class="detail1-part">注册商标名称：{{currentRecord.trademarkName}}</div>
           <div class="detail1-part">商标说明：{{currentRecord.trademarkExplain}}</div>
-          <div class="detail1-part">商标图片：{{currentRecord.trademarkImage}}</div>
+          <div class="detail1-part-pic">商标图片：
+             <a-popover title="图片详情" placement="right">
+              <template slot="content">
+                <img style="width:500px;height:600px;" :src="currentRecord.trademarkImage" />
+              </template>
+                <img  style="width:50px;height:70px;"  :src='currentRecord.trademarkImage' />  
+             </a-popover> 
+          </div>
           <div class="detail1-part">商标类型：{{tradeMarkStatus11()}}</div>
           <div class="detail1-part">订单号：{{currentRecord.orderNo}}</div>
         </div>
@@ -183,7 +190,7 @@
 
 <script>
 import { getStorage } from "../../utils/storage";
-const accessToken = getStorage("AccessToken");
+// const accessToken = getStorage("AccessToken");
 let columns = [
   {
     title: "序号",
@@ -355,6 +362,7 @@ export default {
       }
     },
     getOrderListData(page) {
+       const accessToken = getStorage("AccessToken");
       const headers = {
         accessToken: accessToken
       };
@@ -398,6 +406,7 @@ export default {
       this.visible = false;
     },
     examineOrder(record) {
+      const accessToken = getStorage("AccessToken");
       //审核订单
       //审核
       console.log(record);
@@ -484,5 +493,9 @@ export default {
   width: 70px;
   height: 70px;
   cursor: pointer;
+}
+.detail1-part-pic{
+  height:80px;
+  border-bottom: 1px solid black;
 }
 </style>

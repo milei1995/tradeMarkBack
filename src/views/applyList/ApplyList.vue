@@ -20,7 +20,7 @@
 
 <script>
 import {getStorage} from '../../utils/storage'
-const accessToken =getStorage('AccessToken')
+// const accessToken =getStorage('AccessToken')
 let columns = [
   {
     title: "申请id",
@@ -145,6 +145,7 @@ export default {
       })
     },
     getApplyListData(page) {
+       const accessToken = getStorage("AccessToken");
       const headers = {
         accessToken: accessToken
       };
@@ -170,6 +171,7 @@ export default {
         });
     },
     examineGoods(record) {
+       const accessToken = getStorage("AccessToken");
       //审核
       console.log(record);
        const headers = {
